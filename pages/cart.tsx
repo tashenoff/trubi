@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import CheckoutForm from '../components/CheckoutForm';
 import StepIndicator from '../components/StepIndicator';
+import { useToast } from '../context/ToastContext';
 
 interface CheckoutFormData {
   name: string;
@@ -16,6 +17,7 @@ interface CheckoutFormData {
 
 const CartPage = () => {
   const { items, removeFromCart, updateQuantity, clearCart, totalItems } = useCart();
+  const { showToast } = useToast();
   const [mounted, setMounted] = useState(false);
   const [isCheckoutStep, setIsCheckoutStep] = useState(false);
 
@@ -27,16 +29,43 @@ const CartPage = () => {
     return items.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
-  const handleOrder = (formData: CheckoutFormData) => {
+  const handleOrder = async (formData: CheckoutFormData) => {
     const itemsList = items
       .map(item => `${item.name} - ${item.quantity} шт. x ${item.price.toLocaleString()} ₸`)
       .join('\n');
 
     const total = calculateTotal();
-    const text = `Здравствуйте!\n\nИнформация о заказчике:\nИмя: ${formData.name}\nКомпания: ${formData.company}\nТелефон: ${formData.phone}\nГород: ${formData.city}\nАдрес: ${formData.address}\n\nЗаказ:\n${itemsList}\n\nОбщая сумма: ${total.toLocaleString()} ₸`;
-    const encodedText = encodeURIComponent(text);
-    const phoneNumber = '79000000000'; // Замените на реальный номер телефона
-    window.open(`https://wa.me/${phoneNumber}?text=${encodedText}`, '_blank');
+    const message = `🆕 Новый заказ!\n\n` +
+      `👤 Клиент: ${formData.name}\n` +
+      `🏢 Компания: ${formData.company}\n` +
+      `📱 Телефон: ${formData.phone}\n` +
+      `🏙️ Город: ${formData.city}\n` +
+      `📍 Адрес: ${formData.address}\n\n` +
+      `📦 Заказ:\n${itemsList}\n\n` +
+      `💰 Общая сумма: ${total.toLocaleString()} ₸\n\n` +
+      `🕒 Дата: ${new Date().toLocaleString('ru-RU')}`;
+
+    try {
+      const response = await fetch('/api/sendOrder', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text: message
+        }),
+      });
+
+      if (response.ok) {
+        clearCart();
+        showToast('Заказ успешно отправлен!');
+      } else {
+        throw new Error('Failed to send order');
+      }
+    } catch (error) {
+      console.error('Error sending order:', error);
+      showToast('Ошибка при отправке заказа. Пожалуйста, попробуйте позже.');
+    }
   };
 
   return (
