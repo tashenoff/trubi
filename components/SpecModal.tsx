@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useCart } from '../context/CartContext';
+import { useToast } from '../context/ToastContext';
 
 interface Specification {
   name?: string;
@@ -27,6 +29,8 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
   const [isAnimating, setIsAnimating] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [selectedItems, setSelectedItems] = useState<SelectedItem[]>([]);
+  const { addToCart } = useCart();
+  const { showToast } = useToast();
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -41,7 +45,7 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
       setIsAnimating(false);
       timer = setTimeout(() => {
         setIsVisible(false);
-        setSelectedItems([]); // Сброс выбранных элементов при закрытии
+        setSelectedItems([]);
       }, 300);
     }
 
@@ -62,7 +66,7 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
   };
 
   const handleQuantityChange = (itemName: string, quantity: number) => {
-    if (quantity < 1) return; // Не позволяем установить количество меньше 1
+    if (quantity < 1) return;
     
     setSelectedItems(prev => {
       return prev.map(item => {
@@ -88,21 +92,23 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
       }, 0);
   };
 
-  const handleOrder = () => {
-    const itemsList = selectedItems
-      .map(item => {
-        const spec = specifications.find(s => (s.name || s.diameter) === item.name);
-        const price = type === 'bends' ? spec?.price : spec?.pricePerMeter;
-        return `${item.name} - ${item.quantity} шт. x ${price?.toLocaleString()} ₸`;
-      })
-      .join('\n');
+  const handleAddToCart = () => {
+    const cartItems = selectedItems.map(item => {
+      const spec = specifications.find(s => (s.name || s.diameter) === item.name);
+      if (!spec) return null;
+      
+      return {
+        name: item.name,
+        quantity: 1,
+        price: type === 'bends' ? spec.price || 0 : spec.pricePerMeter || 0,
+        weight: spec.weight,
+        type
+      };
+    }).filter((item): item is NonNullable<typeof item> => item !== null);
 
-    const total = calculateTotal();
-    const text = `Здравствуйте! Меня интересует:\n${itemsList}\n\nОбщая сумма: ${total.toLocaleString()} ₸`;
-    const encodedText = encodeURIComponent(text);
-    const phoneNumber = '79000000000'; // Замените на реальный номер телефона
-    window.open(`https://wa.me/${phoneNumber}?text=${encodedText}`, '_blank');
+    addToCart(cartItems);
     onClose();
+    showToast('Товары добавлены в корзину');
   };
 
   if (!isVisible) return null;
@@ -113,7 +119,6 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
         return (
           <tr className="bg-gray-50">
             <th className="px-4 py-2 text-left">Выбрать</th>
-            <th className="px-4 py-2 text-left">Кол-во</th>
             <th className="px-4 py-2 text-left">Наименование</th>
             <th className="px-4 py-2 text-right">Вес, кг</th>
             <th className="px-4 py-2 text-right">Цена, ₸</th>
@@ -124,7 +129,6 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
         return (
           <tr className="bg-gray-50">
             <th className="px-4 py-2 text-left">Выбрать</th>
-            <th className="px-4 py-2 text-left">Кол-во</th>
             <th className="px-4 py-2 text-left">Диаметр</th>
             <th className="px-4 py-2 text-right">Вес 1 п.м.</th>
             <th className="px-4 py-2 text-right">Цена за 1 п.м.</th>
@@ -153,16 +157,6 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
                 className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary disabled:opacity-50"
               />
             </td>
-            <td className="px-4 py-2">
-              <input
-                type="number"
-                min="1"
-                value={selectedItem?.quantity || 1}
-                onChange={(e) => handleQuantityChange(itemName, parseInt(e.target.value) || 1)}
-                disabled={!isSelected || !isActive}
-                className="w-20 px-2 py-1 border rounded focus:ring-primary focus:border-primary disabled:bg-gray-100"
-              />
-            </td>
             <td className="px-4 py-2">{spec.name}</td>
             <td className="px-4 py-2 text-right">{spec.weight}</td>
             <td className="px-4 py-2 text-right">{spec.price?.toLocaleString()} ₸</td>
@@ -181,16 +175,6 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
                 className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary disabled:opacity-50"
               />
             </td>
-            <td className="px-4 py-2">
-              <input
-                type="number"
-                min="1"
-                value={selectedItem?.quantity || 1}
-                onChange={(e) => handleQuantityChange(itemName, parseInt(e.target.value) || 1)}
-                disabled={!isSelected || !isActive}
-                className="w-20 px-2 py-1 border rounded focus:ring-primary focus:border-primary disabled:bg-gray-100"
-              />
-            </td>
             <td className="px-4 py-2">{spec.diameter}</td>
             <td className="px-4 py-2 text-right">{spec.weight}</td>
             <td className="px-4 py-2 text-right">{spec.pricePerMeter?.toLocaleString()} ₸</td>
@@ -201,7 +185,7 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
   };
 
   return (
-    <div className="fixed inset-0 z-50">
+    <div className={`fixed inset-0 z-50 ${isVisible ? '' : 'hidden'}`}>
       <div className="flex items-center justify-center min-h-screen px-4 py-6">
         {/* Фон с плавным появлением */}
         <div 
@@ -248,27 +232,21 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
           
           <div className="px-6 py-4 bg-gray-50 border-t">
             <div className="flex flex-col space-y-3">
-              {/* На мобильных - вертикально, на десктопе - горизонтально */}
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-3 sm:space-y-0">
                 <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
                   <span className="text-sm text-gray-600 w-full sm:w-auto">
                     Выбрано позиций: {selectedItems.length}
                   </span>
-                  {selectedItems.length > 0 && (
-                    <span className="text-sm text-gray-600 w-full sm:w-auto">
-                      Общая сумма: {calculateTotal().toLocaleString()} ₸
-                    </span>
-                  )}
                 </div>
                 <button
-                  onClick={handleOrder}
+                  onClick={handleAddToCart}
                   disabled={selectedItems.length === 0}
                   className={`w-full sm:w-auto inline-flex justify-center px-6 py-2 border border-transparent text-sm font-medium rounded-md text-white 
                     ${selectedItems.length > 0 
                       ? 'bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary' 
                       : 'bg-gray-400 cursor-not-allowed'}`}
                 >
-                  Заказать
+                  Добавить в корзину
                 </button>
               </div>
             </div>
