@@ -323,6 +323,12 @@
           "pricePerton": 1090000
         },
         {
+          "diameter": "48,3/4",
+          "weight": 4.37,
+          "pricePerMeter": 4938,
+          "pricePerton": 1130000
+        },
+        {
           "diameter": "48/3,5",
           "weight": 3.75,
           "pricePerMeter": 0,
@@ -333,6 +339,12 @@
           "weight": 4.25,
           "pricePerMeter": 0,
           "pricePerton": 0
+        },
+        {
+          "diameter": "51/3,5",
+          "weight": 4.25,
+          "pricePerMeter": 4633,
+          "pricePerton": 1090000
         },
         {
           "diameter": "57/3,5",
@@ -353,6 +365,42 @@
           "pricePerton": 880000
         },
         {
+          "diameter": "57/6",
+          "weight": 7.55,
+          "pricePerMeter": 6644,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "57/10",
+          "weight": 11.59,
+          "pricePerMeter": 0,
+          "pricePerton": 0
+        },
+        {
+          "diameter": "60/3,5",
+          "weight": 4.9,
+          "pricePerMeter": 4312,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "60/4",
+          "weight": 5.52,
+          "pricePerMeter": 4858,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "60/5",
+          "weight": 6.78,
+          "pricePerMeter": 5966,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "60/6",
+          "weight": 7.99,
+          "pricePerMeter": 7031,
+          "pricePerton": 880000
+        },
+        {
           "diameter": "76/3,5",
           "weight": 6.26,
           "pricePerMeter": 5509,
@@ -365,6 +413,18 @@
           "pricePerton": 880000
         },
         {
+          "diameter": "76/5",
+          "weight": 8.76,
+          "pricePerMeter": 7709,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "76/6",
+          "weight": 10.47,
+          "pricePerMeter": 9214,
+          "pricePerton": 880000
+        },
+        {
           "diameter": "89/4",
           "weight": 8.39,
           "pricePerMeter": 7383,
@@ -374,6 +434,24 @@
           "diameter": "89/5",
           "weight": 10.36,
           "pricePerMeter": 9117,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "89/6",
+          "weight": 12.28,
+          "pricePerMeter": 0,
+          "pricePerton": 0
+        },
+        {
+          "diameter": "89/8",
+          "weight": 15.98,
+          "pricePerMeter": 14062,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "102/5",
+          "weight": 11.96,
+          "pricePerMeter": 10525,
           "pricePerton": 880000
         },
         {
@@ -393,6 +471,132 @@
           "weight": 13.44,
           "pricePerMeter": 11948,
           "pricePerton": 889000
+        },
+        {
+          "diameter": "114/6",
+          "weight": 15.98,
+          "pricePerMeter": 14845,
+          "pricePerton": 929000
+        },
+        {
+          "diameter": "127/5",
+          "weight": 15.04,
+          "pricePerMeter": 13235,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "127/6",
+          "weight": 17.9,
+          "pricePerMeter": 15752,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "133/5",
+          "weight": 15.78,
+          "pricePerMeter": 13886,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "133/6",
+          "weight": 18.79,
+          "pricePerMeter": 16535,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "146/5",
+          "weight": 17.38,
+          "pricePerMeter": 15294,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "146/7",
+          "weight": 23.99,
+          "pricePerMeter": 21111,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "159/5",
+          "weight": 18.99,
+          "pricePerMeter": 16711,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "159/6",
+          "weight": 22.64,
+          "pricePerMeter": 19923,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "159/8",
+          "weight": 29.79,
+          "pricePerMeter": 26215,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "168/6",
+          "weight": 24.39,
+          "pricePerMeter": 0,
+          "pricePerton": 0
+        },
+        {
+          "diameter": "168/7",
+          "weight": 27.79,
+          "pricePerMeter": 24455,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "168/8",
+          "weight": 31.57,
+          "pricePerMeter": 27782,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "219/6",
+          "weight": 31.52,
+          "pricePerMeter": 27738,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "219/7",
+          "weight": 36.59,
+          "pricePerMeter": 30736,
+          "pricePerton": 840000
+        },
+        {
+          "diameter": "219/8",
+          "weight": 41.63,
+          "pricePerMeter": 34969,
+          "pricePerton": 840000
+        },
+        {
+          "diameter": "219/10",
+          "weight": 51.54,
+          "pricePerMeter": 43294,
+          "pricePerton": 840000
+        },
+        {
+          "diameter": "273/7",
+          "weight": 47,
+          "pricePerMeter": 0,
+          "pricePerton": 0
+        },
+        {
+          "diameter": "273/8",
+          "weight": 53,
+          "pricePerMeter": 47170,
+          "pricePerton": 890000
+        },
+        {
+          "diameter": "325/8",
+          "weight": 62.54,
+          "pricePerMeter": 55035,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "426/10",
+          "weight": 102.59,
+          "pricePerMeter": 96332,
+          "pricePerton": 939000
         }
       ]
     },
