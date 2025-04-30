@@ -11,7 +11,7 @@ const CTA = () => {
         className="absolute inset-0" 
         style={{ 
           backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.15) 1px, transparent 0)`,
-          backgroundSize: '24px 24px'
+          backgroundSize: '16px 16px'
         }}
       ></div>
 
@@ -20,7 +20,7 @@ const CTA = () => {
         className="absolute inset-0" 
         style={{ 
           backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.4) 1px, transparent 0)`,
-          backgroundSize: '24px 24px',
+          backgroundSize: '16px 16px',
           maskImage: `linear-gradient(
             -45deg,
             transparent,
