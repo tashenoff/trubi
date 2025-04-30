@@ -21,6 +21,7 @@ interface SpecModalProps {
 const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, specifications, type }) => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
@@ -39,6 +40,7 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
       // После завершения анимации скрываем окно
       timer = setTimeout(() => {
         setIsVisible(false);
+        setSelectedItems([]); // Сброс выбранных элементов при закрытии
       }, 300);
     }
 
@@ -47,7 +49,21 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
     };
   }, [isOpen]);
 
-  const handleClose = () => {
+  const handleItemToggle = (itemName: string) => {
+    setSelectedItems(prev => {
+      if (prev.includes(itemName)) {
+        return prev.filter(item => item !== itemName);
+      } else {
+        return [...prev, itemName];
+      }
+    });
+  };
+
+  const handleOrder = () => {
+    const text = `Здравствуйте! Меня интересует:\n${selectedItems.join('\n')}`;
+    const encodedText = encodeURIComponent(text);
+    const phoneNumber = '79000000000'; // Замените на реальный номер телефона
+    window.open(`https://wa.me/${phoneNumber}?text=${encodedText}`, '_blank');
     onClose();
   };
 
@@ -58,6 +74,7 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
       case 'bends':
         return (
           <tr className="bg-gray-50">
+            <th className="px-4 py-2 text-left">Выбрать</th>
             <th className="px-4 py-2 text-left">Наименование</th>
             <th className="px-4 py-2 text-right">Вес, кг</th>
             <th className="px-4 py-2 text-right">Цена, ₽</th>
@@ -67,6 +84,7 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
       case 'coldDeformed':
         return (
           <tr className="bg-gray-50">
+            <th className="px-4 py-2 text-left">Выбрать</th>
             <th className="px-4 py-2 text-left">Диаметр</th>
             <th className="px-4 py-2 text-right">Вес 1 п.м.</th>
             <th className="px-4 py-2 text-right">Цена за 1 п.м.</th>
@@ -77,10 +95,20 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
   };
 
   const renderTableRow = (spec: Specification) => {
+    const itemName = spec.name || spec.diameter || '';
+    
     switch (type) {
       case 'bends':
         return (
-          <tr key={spec.name} className="border-b">
+          <tr key={spec.name} className="border-b hover:bg-gray-50 transition-colors">
+            <td className="px-4 py-2">
+              <input
+                type="checkbox"
+                checked={selectedItems.includes(itemName)}
+                onChange={() => handleItemToggle(itemName)}
+                className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+              />
+            </td>
             <td className="px-4 py-2">{spec.name}</td>
             <td className="px-4 py-2 text-right">{spec.weight}</td>
             <td className="px-4 py-2 text-right">{spec.price?.toLocaleString()}</td>
@@ -89,7 +117,15 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
       case 'pipes':
       case 'coldDeformed':
         return (
-          <tr key={spec.diameter} className="border-b">
+          <tr key={spec.diameter} className="border-b hover:bg-gray-50 transition-colors">
+            <td className="px-4 py-2">
+              <input
+                type="checkbox"
+                checked={selectedItems.includes(itemName)}
+                onChange={() => handleItemToggle(itemName)}
+                className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+              />
+            </td>
             <td className="px-4 py-2">{spec.diameter}</td>
             <td className="px-4 py-2 text-right">{spec.weight}</td>
             <td className="px-4 py-2 text-right">{spec.pricePerMeter?.toLocaleString()}</td>
@@ -107,7 +143,7 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
           className={`fixed inset-0 bg-gray-500 transition-all duration-300 ease-out ${
             isAnimating ? 'opacity-75' : 'opacity-0'
           }`} 
-          onClick={handleClose}
+          onClick={onClose}
         ></div>
         
         {/* Модальное окно */}
@@ -120,7 +156,7 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
             <div className="flex items-center justify-between">
               <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
               <button
-                onClick={handleClose}
+                onClick={onClose}
                 className="text-gray-400 hover:text-gray-500 focus:outline-none"
               >
                 <span className="sr-only">Закрыть</span>
@@ -146,12 +182,21 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
           </div>
           
           <div className="px-6 py-4 bg-gray-50 border-t">
-            <button
-              onClick={handleClose}
-              className="w-full inline-flex justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-            >
-              Закрыть
-            </button>
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-gray-600">
+                Выбрано позиций: {selectedItems.length}
+              </span>
+              <button
+                onClick={handleOrder}
+                disabled={selectedItems.length === 0}
+                className={`inline-flex justify-center px-6 py-2 border border-transparent text-sm font-medium rounded-md text-white 
+                  ${selectedItems.length > 0 
+                    ? 'bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary' 
+                    : 'bg-gray-400 cursor-not-allowed'}`}
+              >
+                Заказать
+              </button>
+            </div>
           </div>
         </div>
       </div>
