@@ -9,6 +9,11 @@ interface Specification {
   pricePerton?: number;
 }
 
+interface SelectedItem {
+  name: string;
+  quantity: number;
+}
+
 interface SpecModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -21,23 +26,19 @@ interface SpecModalProps {
 const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, specifications, type }) => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [selectedItems, setSelectedItems] = useState<SelectedItem[]>([]);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
     
     if (isOpen) {
-      // При открытии сначала показываем окно и фон в начальной позиции
       setIsVisible(true);
       setIsAnimating(false);
-      // Затем запускаем анимацию
       timer = setTimeout(() => {
         setIsAnimating(true);
       }, 50);
     } else {
-      // При закрытии запускаем анимацию исчезновения
       setIsAnimating(false);
-      // После завершения анимации скрываем окно
       timer = setTimeout(() => {
         setIsVisible(false);
         setSelectedItems([]); // Сброс выбранных элементов при закрытии
@@ -51,16 +52,53 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
 
   const handleItemToggle = (itemName: string) => {
     setSelectedItems(prev => {
-      if (prev.includes(itemName)) {
-        return prev.filter(item => item !== itemName);
+      const isSelected = prev.some(item => item.name === itemName);
+      if (isSelected) {
+        return prev.filter(item => item.name !== itemName);
       } else {
-        return [...prev, itemName];
+        return [...prev, { name: itemName, quantity: 1 }];
       }
     });
   };
 
+  const handleQuantityChange = (itemName: string, quantity: number) => {
+    if (quantity < 1) return; // Не позволяем установить количество меньше 1
+    
+    setSelectedItems(prev => {
+      return prev.map(item => {
+        if (item.name === itemName) {
+          return { ...item, quantity };
+        }
+        return item;
+      });
+    });
+  };
+
+  const calculateTotal = () => {
+    return specifications
+      .filter(spec => {
+        const itemName = spec.name || spec.diameter || '';
+        return selectedItems.some(item => item.name === itemName);
+      })
+      .reduce((total, spec) => {
+        const itemName = spec.name || spec.diameter || '';
+        const selectedItem = selectedItems.find(item => item.name === itemName);
+        const price = type === 'bends' ? spec.price : spec.pricePerMeter;
+        return total + (price || 0) * (selectedItem?.quantity || 0);
+      }, 0);
+  };
+
   const handleOrder = () => {
-    const text = `Здравствуйте! Меня интересует:\n${selectedItems.join('\n')}`;
+    const itemsList = selectedItems
+      .map(item => {
+        const spec = specifications.find(s => (s.name || s.diameter) === item.name);
+        const price = type === 'bends' ? spec?.price : spec?.pricePerMeter;
+        return `${item.name} - ${item.quantity} шт. x ${price?.toLocaleString()} ₽`;
+      })
+      .join('\n');
+
+    const total = calculateTotal();
+    const text = `Здравствуйте! Меня интересует:\n${itemsList}\n\nОбщая сумма: ${total.toLocaleString()} ₽`;
     const encodedText = encodeURIComponent(text);
     const phoneNumber = '79000000000'; // Замените на реальный номер телефона
     window.open(`https://wa.me/${phoneNumber}?text=${encodedText}`, '_blank');
@@ -75,6 +113,7 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
         return (
           <tr className="bg-gray-50">
             <th className="px-4 py-2 text-left">Выбрать</th>
+            <th className="px-4 py-2 text-left">Кол-во</th>
             <th className="px-4 py-2 text-left">Наименование</th>
             <th className="px-4 py-2 text-right">Вес, кг</th>
             <th className="px-4 py-2 text-right">Цена, ₽</th>
@@ -85,6 +124,7 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
         return (
           <tr className="bg-gray-50">
             <th className="px-4 py-2 text-left">Выбрать</th>
+            <th className="px-4 py-2 text-left">Кол-во</th>
             <th className="px-4 py-2 text-left">Диаметр</th>
             <th className="px-4 py-2 text-right">Вес 1 п.м.</th>
             <th className="px-4 py-2 text-right">Цена за 1 п.м.</th>
@@ -96,6 +136,8 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
 
   const renderTableRow = (spec: Specification) => {
     const itemName = spec.name || spec.diameter || '';
+    const selectedItem = selectedItems.find(item => item.name === itemName);
+    const isSelected = Boolean(selectedItem);
     
     switch (type) {
       case 'bends':
@@ -104,9 +146,19 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
             <td className="px-4 py-2">
               <input
                 type="checkbox"
-                checked={selectedItems.includes(itemName)}
+                checked={isSelected}
                 onChange={() => handleItemToggle(itemName)}
                 className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+              />
+            </td>
+            <td className="px-4 py-2">
+              <input
+                type="number"
+                min="1"
+                value={selectedItem?.quantity || 1}
+                onChange={(e) => handleQuantityChange(itemName, parseInt(e.target.value) || 1)}
+                disabled={!isSelected}
+                className="w-20 px-2 py-1 border rounded focus:ring-primary focus:border-primary disabled:bg-gray-100"
               />
             </td>
             <td className="px-4 py-2">{spec.name}</td>
@@ -121,9 +173,19 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
             <td className="px-4 py-2">
               <input
                 type="checkbox"
-                checked={selectedItems.includes(itemName)}
+                checked={isSelected}
                 onChange={() => handleItemToggle(itemName)}
                 className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+              />
+            </td>
+            <td className="px-4 py-2">
+              <input
+                type="number"
+                min="1"
+                value={selectedItem?.quantity || 1}
+                onChange={(e) => handleQuantityChange(itemName, parseInt(e.target.value) || 1)}
+                disabled={!isSelected}
+                className="w-20 px-2 py-1 border rounded focus:ring-primary focus:border-primary disabled:bg-gray-100"
               />
             </td>
             <td className="px-4 py-2">{spec.diameter}</td>
@@ -182,20 +244,30 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
           </div>
           
           <div className="px-6 py-4 bg-gray-50 border-t">
-            <div className="flex justify-between items-center">
-              <span className="text-sm text-gray-600">
-                Выбрано позиций: {selectedItems.length}
-              </span>
-              <button
-                onClick={handleOrder}
-                disabled={selectedItems.length === 0}
-                className={`inline-flex justify-center px-6 py-2 border border-transparent text-sm font-medium rounded-md text-white 
-                  ${selectedItems.length > 0 
-                    ? 'bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary' 
-                    : 'bg-gray-400 cursor-not-allowed'}`}
-              >
-                Заказать
-              </button>
+            <div className="flex flex-col space-y-3">
+              {/* На мобильных - вертикально, на десктопе - горизонтально */}
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-3 sm:space-y-0">
+                <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
+                  <span className="text-sm text-gray-600 w-full sm:w-auto">
+                    Выбрано позиций: {selectedItems.length}
+                  </span>
+                  {selectedItems.length > 0 && (
+                    <span className="text-sm text-gray-600 w-full sm:w-auto">
+                      Общая сумма: {calculateTotal().toLocaleString()} ₽
+                    </span>
+                  )}
+                </div>
+                <button
+                  onClick={handleOrder}
+                  disabled={selectedItems.length === 0}
+                  className={`w-full sm:w-auto inline-flex justify-center px-6 py-2 border border-transparent text-sm font-medium rounded-md text-white 
+                    ${selectedItems.length > 0 
+                      ? 'bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary' 
+                      : 'bg-gray-400 cursor-not-allowed'}`}
+                >
+                  Заказать
+                </button>
+              </div>
             </div>
           </div>
         </div>
