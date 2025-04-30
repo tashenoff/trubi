@@ -18,6 +18,15 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const scrollToSection = (e: React.MouseEvent, sectionId: string) => {
+    e.preventDefault();
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setIsMobileMenuOpen(false);
+    }
+  };
+
   return (
     <>
       <nav 
@@ -47,24 +56,27 @@ const Navbar = () => {
                 >
                   Главная
                 </Link>
-                <Link 
-                  href="/#products" 
+                <a 
+                  href="#products" 
+                  onClick={(e) => scrollToSection(e, 'products')}
                   className="text-white hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
                 >
                   Продукция
-                </Link>
-                <Link 
-                  href="/#advantages" 
+                </a>
+                <a 
+                  href="#advantages" 
+                  onClick={(e) => scrollToSection(e, 'advantages')}
                   className="text-white hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
                 >
                   Преимущества
-                </Link>
-                <Link 
-                  href="/#contact" 
+                </a>
+                <a 
+                  href="#contact" 
+                  onClick={(e) => scrollToSection(e, 'contact')}
                   className="text-white hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
                 >
                   Контакты
-                </Link>
+                </a>
                 <div className="text-white font-medium flex items-center group">
                   <svg 
                     xmlns="http://www.w3.org/2000/svg" 
@@ -130,27 +142,27 @@ const Navbar = () => {
             >
               Главная
             </Link>
-            <Link
-              href="/#products"
+            <a
+              href="#products"
+              onClick={(e) => scrollToSection(e, 'products')}
               className="text-white hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
-              onClick={() => setIsMobileMenuOpen(false)}
             >
               Продукция
-            </Link>
-            <Link
-              href="/#advantages"
+            </a>
+            <a
+              href="#advantages"
+              onClick={(e) => scrollToSection(e, 'advantages')}
               className="text-white hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
-              onClick={() => setIsMobileMenuOpen(false)}
             >
               Преимущества
-            </Link>
-            <Link
-              href="/#contact"
+            </a>
+            <a
+              href="#contact"
+              onClick={(e) => scrollToSection(e, 'contact')}
               className="text-white hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
-              onClick={() => setIsMobileMenuOpen(false)}
             >
               Контакты
-            </Link>
+            </a>
             <div className="text-white font-medium flex items-center px-3 py-2 group">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

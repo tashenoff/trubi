@@ -4,6 +4,7 @@ import Hero from '../components/Hero';
 import Products from '../components/Products';
 import Advantages from '../components/Advantages';
 import CTA from '../components/CTA';
+import Contacts from '../components/Contacts';
 import Footer from '../components/Footer';
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
         <Products />
         <Advantages />
         <CTA />
+        <Contacts />
       </main>
       <Footer />
     </div>
