@@ -30,28 +30,14 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
   const [isVisible, setIsVisible] = useState(false);
   const [selectedItems, setSelectedItems] = useState<SelectedItem[]>([]);
   const { addToCart } = useCart();
-  const { showToast } = useToast();
 
   useEffect(() => {
-    let timer: NodeJS.Timeout;
-    
     if (isOpen) {
       setIsVisible(true);
-      setIsAnimating(false);
-      timer = setTimeout(() => {
-        setIsAnimating(true);
-      }, 50);
     } else {
-      setIsAnimating(false);
-      timer = setTimeout(() => {
-        setIsVisible(false);
-        setSelectedItems([]);
-      }, 300);
+      setIsVisible(false);
+      setSelectedItems([]);
     }
-
-    return () => {
-      if (timer) clearTimeout(timer);
-    };
   }, [isOpen]);
 
   const handleItemToggle = (itemName: string) => {
@@ -108,7 +94,6 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
 
     addToCart(cartItems);
     onClose();
-    showToast('Товары добавлены в корзину');
   };
 
   if (!isVisible) return null;
@@ -187,19 +172,13 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
   return (
     <div className={`fixed inset-0 z-50 ${isVisible ? '' : 'hidden'}`}>
       <div className="flex items-center justify-center min-h-screen px-4 py-6">
-        {/* Фон с плавным появлением */}
         <div 
-          className={`fixed inset-0 bg-gray-500 transition-all duration-300 ease-out ${
-            isAnimating ? 'opacity-75' : 'opacity-0'
-          }`} 
+          className={`fixed inset-0 bg-gray-500 ${isVisible ? 'opacity-75' : 'opacity-0'}`} 
           onClick={onClose}
         ></div>
         
-        {/* Модальное окно */}
         <div 
-          className={`relative bg-white rounded-lg max-w-4xl w-full mx-auto flex flex-col max-h-[90vh] transform transition-all duration-300 ease-out ${
-            isAnimating ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
-          }`}
+          className={`relative bg-white rounded-lg max-w-4xl w-full mx-auto flex flex-col max-h-[90vh] ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'}`}
         >
           <div className="px-6 py-4 border-b">
             <div className="flex items-center justify-between">

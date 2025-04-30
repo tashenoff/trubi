@@ -1,5 +1,6 @@
 import React from 'react';
 import { CartProvider } from '../context/CartContext';
+import FloatingCart from './FloatingCart';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -7,12 +8,10 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <CartProvider>
-      <div className="min-h-screen bg-gray-100">
-        {children}
-      </div>
-    </CartProvider>
+    <div className="min-h-screen bg-gray-100">
+      {children}
+    </div>
   );
 };
 
-export default Layout; 
+export default Layout;
