@@ -1,0 +1,449 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Отводы бесшовные",
+      "description": "Высококачественные бесшовные отводы для трубопроводов",
+      "image": "/images/seamless-bends.jpg",
+      "gost": "Отводы бесшовные ГОСТ 17375-2001 ст.20",
+      "features": [
+        "Высокая прочность",
+        "Долговечность",
+        "Устойчивость к коррозии"
+      ],
+      "specifications": [
+        {
+          "name": "Заглушка 57*5,исп.2,ст 09Г2С",
+          "weight": 0.3,
+          "price": 1100
+        },
+        {
+          "name": "Заглушка 76*3,5,исп.2,ст 09Г2С",
+          "weight": 0.2,
+          "price": 1500
+        },
+        {
+          "name": "Переход К 108*4-89*3,5, исп.2, ст.09Г2С",
+          "weight": 1,
+          "price": 2700
+        },
+        {
+          "name": "Отвод 90, 21,3х2, исп. 1",
+          "weight": 0.04,
+          "price": 700
+        },
+        {
+          "name": "Отвод 90, 21,3х3,2 исп. 1",
+          "weight": 0.06,
+          "price": 800
+        },
+        {
+          "name": "Отвод 90, 26,9х3,2, исп. 1",
+          "weight": 0.08,
+          "price": 1450
+        },
+        {
+          "name": "Отвод 90, 33,7х3,2, исп. 1",
+          "weight": 0.16,
+          "price": 1600
+        },
+        {
+          "name": "Отвод 90, 33,7х3,6, исп. 2",
+          "weight": 0.16,
+          "price": 1700
+        },
+        {
+          "name": "Отвод 90, 32х3, исп. 2",
+          "weight": 0.2,
+          "price": 1300
+        },
+        {
+          "name": "Отвод 90, 32х3,5 исп. 2",
+          "weight": 0.2,
+          "price": 1470
+        },
+        {
+          "name": "Отвод 90, 38х3, исп. 2",
+          "weight": 0.2,
+          "price": 1500
+        },
+        {
+          "name": "Отвод 90, 42,4х3,6 исп. 1",
+          "weight": 0.3,
+          "price": 2350
+        },
+        {
+          "name": "Отвод 90, 45х3,5, исп. 2",
+          "weight": 0.4,
+          "price": 0
+        },
+        {
+          "name": "Отвод 90, 45х4,0 исп. 3",
+          "weight": 0.4,
+          "price": 0
+        },
+        {
+          "name": "Отвод 90, 48,3х3,6, исп. 1",
+          "weight": 0.72,
+          "price": 0
+        },
+        {
+          "name": "Отвод 90, 57х3, исп. 2",
+          "weight": 0.5,
+          "price": 1500
+        },
+        {
+          "name": "Отвод 90, 57х3,5 исп. 2",
+          "weight": 0.6,
+          "price": 1800
+        },
+        {
+          "name": "Отвод 90, 57х4, исп. 2",
+          "weight": 0.7,
+          "price": 2200
+        },
+        {
+          "name": "Отвод 90, 57х5, исп. 2",
+          "weight": 1,
+          "price": 2500
+        },
+        {
+          "name": "Отвод 90, 60,3х4, исп. 1",
+          "weight": 1.3,
+          "price": 3000
+        },
+        {
+          "name": "Отвод 90, 76х3,5, исп. 2",
+          "weight": 1,
+          "price": 2400
+        },
+        {
+          "name": "Отвод 90, 76х4, исп. 2",
+          "weight": 1.1,
+          "price": 3000
+        },
+        {
+          "name": "Отвод 90, 76х5, исп. 2",
+          "weight": 1.4,
+          "price": 4100
+        },
+        {
+          "name": "Отвод 90, 89х3,5, исп. 2",
+          "weight": 1.4,
+          "price": 4300
+        },
+        {
+          "name": "Отвод 90, 89х4, исп. 2, ст.09Г2С",
+          "weight": 1.5,
+          "price": 4500
+        },
+        {
+          "name": "Отвод 90, 89х4,5 исп. 2,ст.20 ст 09Г2С",
+          "weight": 1.5,
+          "price": 4800
+        },
+        {
+          "name": "Отвод 90, 89х5 исп. 2,ст.",
+          "weight": 1.8,
+          "price": 5000
+        },
+        {
+          "name": "Отвод 90, 89х6, исп. 2",
+          "weight": 2.3,
+          "price": 6000
+        },
+        {
+          "name": "Отвод 90, 102х4, исп. 2",
+          "weight": 2.4,
+          "price": 6400
+        },
+        {
+          "name": "Отвод 90, 108х4, исп. 2",
+          "weight": 2.5,
+          "price": 7000
+        },
+        {
+          "name": "Отвод 90, 108х5, исп. 3",
+          "weight": 3.1,
+          "price": 8800
+        },
+        {
+          "name": "Отвод 90, 108х6, исп. 2,ст.20",
+          "weight": 3.6,
+          "price": 9500
+        },
+        {
+          "name": "Отвод 90, 108х6, исп. 2,ст.09Г2С",
+          "weight": 3.6,
+          "price": 9500
+        },
+        {
+          "name": "Отвод 90, 114х4, исп. 2",
+          "weight": 2.6,
+          "price": 7000
+        },
+        {
+          "name": "Отвод 90, 114х5, исп. 2",
+          "weight": 3.3,
+          "price": 8000
+        },
+        {
+          "name": "Отвод 90, 114х6, исп. 2",
+          "weight": 3.8,
+          "price": 0
+        },
+        {
+          "name": "Отвод 90, 133х4, исп. 2",
+          "weight": 3.8,
+          "price": 7000
+        },
+        {
+          "name": "Отвод 90, 133х4,5, исп.2",
+          "weight": 4.3,
+          "price": 9000
+        },
+        {
+          "name": "Отвод 90, 133х5, исп. 2",
+          "weight": 4.8,
+          "price": 10300
+        },
+        {
+          "name": "Отвод 90, 133х6,0 исп. 2",
+          "weight": 5,
+          "price": 11000
+        },
+        {
+          "name": "Отвод 90, 159х4,5, исп. 2",
+          "weight": 6.1,
+          "price": 14000
+        },
+        {
+          "name": "Отвод 90, 159х5, исп. 2",
+          "weight": 6.7,
+          "price": 19000
+        },
+        {
+          "name": "Отвод 90, 159х6, исп. 2",
+          "weight": 8,
+          "price": 22000
+        },
+        {
+          "name": "Отвод 90, 159х7, исп. 2",
+          "weight": 9.4,
+          "price": 23200
+        },
+        {
+          "name": "Отвод 90, 219х6, исп. 2",
+          "weight": 15,
+          "price": 33000
+        },
+        {
+          "name": "Отвод 90, 219х7, исп. 2",
+          "weight": 17,
+          "price": 37000
+        },
+        {
+          "name": "Отвод 90, 219х8, исп. 2",
+          "weight": 20,
+          "price": 49800
+        },
+        {
+          "name": "Отвод 90, 273х7, исп. 2",
+          "weight": 27,
+          "price": 57000
+        },
+        {
+          "name": "Отвод 90, 273х8, исп. 2",
+          "weight": 31,
+          "price": 70000
+        },
+        {
+          "name": "Отвод 90, 325х8, исп. 2",
+          "weight": 45,
+          "price": 73000
+        },
+        {
+          "name": "Отвод 90, 426х10,0 исп. 2",
+          "weight": 97,
+          "price": 190000
+        },
+        {
+          "name": "Отвод 90,530х10,0, исп. 2",
+          "weight": 153,
+          "price": 210000
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Трубы бесшовные",
+      "description": "Бесшовные трубы для различных промышленных применений",
+      "image": "/images/seamless-pipes.jpg",
+      "gost": "Трубы бесшовные ГОСТ 8732-78 ст.20",
+      "features": [
+        "Отсутствие сварных швов",
+        "Высокая надежность",
+        "Широкий диапазон размеров"
+      ],
+      "specifications": [
+        {
+          "diameter": "33,7/3,5",
+          "weight": 2.61,
+          "pricePerMeter": 2845,
+          "pricePerton": 1090000
+        },
+        {
+          "diameter": "38/3,2",
+          "weight": 2.7,
+          "pricePerMeter": 0,
+          "pricePerton": 0
+        },
+        {
+          "diameter": "38/3,5",
+          "weight": 2.98,
+          "pricePerMeter": 3248,
+          "pricePerton": 1090000
+        },
+        {
+          "diameter": "38/4",
+          "weight": 3.35,
+          "pricePerMeter": 3652,
+          "pricePerton": 1090000
+        },
+        {
+          "diameter": "42/3,5",
+          "weight": 3.32,
+          "pricePerMeter": 3619,
+          "pricePerton": 1090000
+        },
+        {
+          "diameter": "45/4",
+          "weight": 3.96,
+          "pricePerMeter": 4316,
+          "pricePerton": 1090000
+        },
+        {
+          "diameter": "48/3,5",
+          "weight": 3.75,
+          "pricePerMeter": 0,
+          "pricePerton": 0
+        },
+        {
+          "diameter": "48/4",
+          "weight": 4.25,
+          "pricePerMeter": 0,
+          "pricePerton": 0
+        },
+        {
+          "diameter": "57/3,5",
+          "weight": 4.62,
+          "pricePerMeter": 4066,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "57/4",
+          "weight": 5.2,
+          "pricePerMeter": 4576,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "57/5",
+          "weight": 6.4,
+          "pricePerMeter": 5632,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "76/3,5",
+          "weight": 6.26,
+          "pricePerMeter": 5509,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "76/4",
+          "weight": 7.1,
+          "pricePerMeter": 6248,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "89/4",
+          "weight": 8.39,
+          "pricePerMeter": 7383,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "89/5",
+          "weight": 10.36,
+          "pricePerMeter": 9117,
+          "pricePerton": 880000
+        },
+        {
+          "diameter": "108/5",
+          "weight": 12.8,
+          "pricePerMeter": 11379,
+          "pricePerton": 889000
+        },
+        {
+          "diameter": "108/6",
+          "weight": 15.09,
+          "pricePerMeter": 13566,
+          "pricePerton": 899000
+        },
+        {
+          "diameter": "114/5",
+          "weight": 13.44,
+          "pricePerMeter": 11948,
+          "pricePerton": 889000
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Холоднодеформированные",
+      "description": "Трубы, изготовленные методом холодной деформации",
+      "image": "/images/cold-deformed.jpg",
+      "gost": "ГОСТ 8734-75 ст.20 (холоднодеформированные)",
+      "features": [
+        "Точные размеры",
+        "Высокое качество поверхности",
+        "Улучшенные механические свойства"
+      ],
+      "specifications": [
+        {
+          "diameter": "20/2,5",
+          "weight": 1.09,
+          "pricePerMeter": 0,
+          "pricePerton": 0
+        },
+        {
+          "diameter": "25/2,5",
+          "weight": 1.39,
+          "pricePerMeter": 2196,
+          "pricePerton": 1580000
+        },
+        {
+          "diameter": "28/3,0",
+          "weight": 1.85,
+          "pricePerMeter": 2788,
+          "pricePerton": 1507000
+        },
+        {
+          "diameter": "32/3",
+          "weight": 2.15,
+          "pricePerMeter": 2887,
+          "pricePerton": 1343000
+        },
+        {
+          "diameter": "51/2,5",
+          "weight": 3.02,
+          "pricePerMeter": 3663,
+          "pricePerton": 1213000
+        }
+      ]
+    }
+  ],
+  "contacts": {
+    "phone": "+7 (XXX) XXX-XX-XX",
+    "email": "info@pipecompany.com",
+    "address": "г. Москва, ул. Промышленная, д. 1"
+  }
+} 
