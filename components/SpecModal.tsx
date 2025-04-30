@@ -93,12 +93,12 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
       .map(item => {
         const spec = specifications.find(s => (s.name || s.diameter) === item.name);
         const price = type === 'bends' ? spec?.price : spec?.pricePerMeter;
-        return `${item.name} - ${item.quantity} шт. x ${price?.toLocaleString()} ₽`;
+        return `${item.name} - ${item.quantity} шт. x ${price?.toLocaleString()} ₸`;
       })
       .join('\n');
 
     const total = calculateTotal();
-    const text = `Здравствуйте! Меня интересует:\n${itemsList}\n\nОбщая сумма: ${total.toLocaleString()} ₽`;
+    const text = `Здравствуйте! Меня интересует:\n${itemsList}\n\nОбщая сумма: ${total.toLocaleString()} ₸`;
     const encodedText = encodeURIComponent(text);
     const phoneNumber = '79000000000'; // Замените на реальный номер телефона
     window.open(`https://wa.me/${phoneNumber}?text=${encodedText}`, '_blank');
@@ -116,7 +116,7 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
             <th className="px-4 py-2 text-left">Кол-во</th>
             <th className="px-4 py-2 text-left">Наименование</th>
             <th className="px-4 py-2 text-right">Вес, кг</th>
-            <th className="px-4 py-2 text-right">Цена, ₽</th>
+            <th className="px-4 py-2 text-right">Цена, ₸</th>
           </tr>
         );
       case 'pipes':
@@ -138,17 +138,19 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
     const itemName = spec.name || spec.diameter || '';
     const selectedItem = selectedItems.find(item => item.name === itemName);
     const isSelected = Boolean(selectedItem);
+    const isActive = type === 'bends' ? spec.price !== 0 : spec.pricePerMeter !== 0;
     
     switch (type) {
       case 'bends':
         return (
-          <tr key={spec.name} className="border-b hover:bg-gray-50 transition-colors">
+          <tr key={spec.name} className={`border-b hover:bg-gray-50 transition-colors ${!isActive ? 'opacity-50' : ''}`}>
             <td className="px-4 py-2">
               <input
                 type="checkbox"
                 checked={isSelected}
                 onChange={() => handleItemToggle(itemName)}
-                className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                disabled={!isActive}
+                className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary disabled:opacity-50"
               />
             </td>
             <td className="px-4 py-2">
@@ -157,25 +159,26 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
                 min="1"
                 value={selectedItem?.quantity || 1}
                 onChange={(e) => handleQuantityChange(itemName, parseInt(e.target.value) || 1)}
-                disabled={!isSelected}
+                disabled={!isSelected || !isActive}
                 className="w-20 px-2 py-1 border rounded focus:ring-primary focus:border-primary disabled:bg-gray-100"
               />
             </td>
             <td className="px-4 py-2">{spec.name}</td>
             <td className="px-4 py-2 text-right">{spec.weight}</td>
-            <td className="px-4 py-2 text-right">{spec.price?.toLocaleString()}</td>
+            <td className="px-4 py-2 text-right">{spec.price?.toLocaleString()} ₸</td>
           </tr>
         );
       case 'pipes':
       case 'coldDeformed':
         return (
-          <tr key={spec.diameter} className="border-b hover:bg-gray-50 transition-colors">
+          <tr key={spec.diameter} className={`border-b hover:bg-gray-50 transition-colors ${!isActive ? 'opacity-50' : ''}`}>
             <td className="px-4 py-2">
               <input
                 type="checkbox"
                 checked={isSelected}
                 onChange={() => handleItemToggle(itemName)}
-                className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                disabled={!isActive}
+                className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary disabled:opacity-50"
               />
             </td>
             <td className="px-4 py-2">
@@ -184,14 +187,14 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
                 min="1"
                 value={selectedItem?.quantity || 1}
                 onChange={(e) => handleQuantityChange(itemName, parseInt(e.target.value) || 1)}
-                disabled={!isSelected}
+                disabled={!isSelected || !isActive}
                 className="w-20 px-2 py-1 border rounded focus:ring-primary focus:border-primary disabled:bg-gray-100"
               />
             </td>
             <td className="px-4 py-2">{spec.diameter}</td>
             <td className="px-4 py-2 text-right">{spec.weight}</td>
-            <td className="px-4 py-2 text-right">{spec.pricePerMeter?.toLocaleString()}</td>
-            <td className="px-4 py-2 text-right">{spec.pricePerton?.toLocaleString()}</td>
+            <td className="px-4 py-2 text-right">{spec.pricePerMeter?.toLocaleString()} ₸</td>
+            <td className="px-4 py-2 text-right">{spec.pricePerton?.toLocaleString()} ₸</td>
           </tr>
         );
     }
@@ -253,7 +256,7 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, title, gost, spe
                   </span>
                   {selectedItems.length > 0 && (
                     <span className="text-sm text-gray-600 w-full sm:w-auto">
-                      Общая сумма: {calculateTotal().toLocaleString()} ₽
+                      Общая сумма: {calculateTotal().toLocaleString()} ₸
                     </span>
                   )}
                 </div>
