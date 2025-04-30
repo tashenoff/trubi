@@ -12,31 +12,42 @@ const StepIndicator: React.FC<StepIndicatorProps> = ({ currentStep }) => {
 
   return (
     <div className="w-full max-w-3xl mx-auto mb-8">
-      <div className="flex items-center justify-center">
-        {steps.map((step, index) => (
-          <React.Fragment key={step.number}>
-            <div className="flex flex-col items-center">
+      <div className="relative flex items-center">
+        {/* Линия */}
+        <div className="absolute top-3 left-0 right-0 h-[1px] bg-[#1E375A]" />
+        
+        {/* Шаги */}
+        <div className="relative z-10 flex justify-between w-full">
+          {steps.map((step) => (
+            <div 
+              key={step.number}
+              className={`
+                flex flex-col items-center
+                ${step.number === 1 ? 'text-left' : 'text-right'}
+              `}
+            >
               <div 
-                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium border-2 
+                className={`
+                  w-7 h-7 rounded-full flex items-center justify-center text-sm bg-white
                   ${currentStep >= step.number 
-                    ? 'border-primary bg-primary text-white' 
-                    : 'border-gray-300 bg-white text-gray-500'}`}
+                    ? 'bg-[#1E375A] text-white' 
+                    : 'text-[#1E375A] border border-[#1E375A]'
+                  }
+                `}
               >
                 {step.number}
               </div>
-              <span className={`mt-2 text-xs ${currentStep >= step.number ? 'text-primary' : 'text-gray-500'}`}>
+              <span 
+                className={`
+                  mt-2 text-sm whitespace-normal text-center w-24 sm:w-32
+                  ${currentStep >= step.number ? 'text-[#1E375A]' : 'text-gray-400'}
+                `}
+              >
                 {step.title}
               </span>
             </div>
-            {index < steps.length - 1 && (
-              <div 
-                className={`w-24 h-0.5 mx-4 ${
-                  currentStep > step.number ? 'bg-primary' : 'bg-gray-300'
-                }`}
-              />
-            )}
-          </React.Fragment>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

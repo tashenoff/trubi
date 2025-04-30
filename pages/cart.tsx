@@ -68,81 +68,138 @@ const CartPage = () => {
                   </div>
                 ) : (
                   <>
-                    <div className="bg-white shadow-lg rounded-lg overflow-hidden overflow-x-auto">
-                      <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gray-50">
-                          <tr>
-                            <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              Наименование
-                            </th>
-                            <th className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              Цена
-                            </th>
-                            <th className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              Кол-во
-                            </th>
-                            <th className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                              Сумма
-                            </th>
-                            <th className="px-3 sm:px-6 py-3 w-16"></th>
-                          </tr>
-                        </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
-                          {items.map((item) => (
-                            <tr key={item.name}>
-                              <td className="px-3 sm:px-6 py-4 whitespace-normal text-sm text-gray-900">
-                                {item.name}
-                              </td>
-                              <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">
-                                {item.price.toLocaleString()} ₸
-                              </td>
-                              <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">
+                    <div className="bg-white shadow-lg rounded-lg">
+                      {/* Мобильная версия */}
+                      <div className="md:hidden">
+                        {items.map((item) => (
+                          <div key={item.name} className="p-4 border-b border-gray-200">
+                            <div className="flex justify-between items-start mb-2">
+                              <div className="flex-1 pr-4">
+                                <h3 className="text-sm font-medium text-gray-900">{item.name}</h3>
+                              </div>
+                              <button
+                                onClick={() => removeFromCart(item.name)}
+                                className="text-red-600 hover:text-red-900 p-1"
+                                aria-label="Удалить"
+                              >
+                                <svg 
+                                  xmlns="http://www.w3.org/2000/svg" 
+                                  className="h-5 w-5" 
+                                  viewBox="0 0 20 20" 
+                                  fill="currentColor"
+                                >
+                                  <path 
+                                    fillRule="evenodd" 
+                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" 
+                                    clipRule="evenodd" 
+                                  />
+                                </svg>
+                              </button>
+                            </div>
+                            <div className="flex justify-between items-center">
+                              <div className="text-sm text-gray-500">
+                                {item.price.toLocaleString()} ₸ × 
                                 <input
                                   type="number"
                                   min="1"
                                   value={item.quantity}
                                   onChange={(e) => updateQuantity(item.name, parseInt(e.target.value) || 1)}
-                                  className="w-16 sm:w-20 px-2 py-1 border rounded focus:ring-primary focus:border-primary"
+                                  className="w-16 mx-2 px-2 py-1 border rounded focus:ring-primary focus:border-primary"
                                 />
-                              </td>
-                              <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">
+                              </div>
+                              <div className="text-sm font-medium text-gray-900">
                                 {(item.price * item.quantity).toLocaleString()} ₸
-                              </td>
-                              <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <button
-                                  onClick={() => removeFromCart(item.name)}
-                                  className="text-red-600 hover:text-red-900 p-2"
-                                  aria-label="Удалить"
-                                >
-                                  <svg 
-                                    xmlns="http://www.w3.org/2000/svg" 
-                                    className="h-5 w-5" 
-                                    viewBox="0 0 20 20" 
-                                    fill="currentColor"
-                                  >
-                                    <path 
-                                      fillRule="evenodd" 
-                                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" 
-                                      clipRule="evenodd" 
-                                    />
-                                  </svg>
-                                </button>
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                        <tfoot className="bg-gray-50">
-                          <tr>
-                            <td colSpan={3} className="px-3 sm:px-6 py-4 text-right text-sm font-medium text-gray-900">
-                              Итого:
-                            </td>
-                            <td className="px-3 sm:px-6 py-4 text-right text-sm font-medium text-gray-900">
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                        <div className="p-4 bg-gray-50">
+                          <div className="flex justify-between items-center">
+                            <span className="text-sm font-medium text-gray-900">Итого:</span>
+                            <span className="text-sm font-medium text-gray-900">
                               {calculateTotal().toLocaleString()} ₸
-                            </td>
-                            <td></td>
-                          </tr>
-                        </tfoot>
-                      </table>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Десктопная версия */}
+                      <div className="hidden md:block overflow-x-auto">
+                        <table className="min-w-full divide-y divide-gray-200">
+                          <thead className="bg-gray-50">
+                            <tr>
+                              <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Наименование
+                              </th>
+                              <th className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Цена
+                              </th>
+                              <th className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Кол-во
+                              </th>
+                              <th className="px-3 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Сумма
+                              </th>
+                              <th className="px-3 sm:px-6 py-3 w-16"></th>
+                            </tr>
+                          </thead>
+                          <tbody className="bg-white divide-y divide-gray-200">
+                            {items.map((item) => (
+                              <tr key={item.name}>
+                                <td className="px-3 sm:px-6 py-4 whitespace-normal text-sm text-gray-900">
+                                  {item.name}
+                                </td>
+                                <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">
+                                  {item.price.toLocaleString()} ₸
+                                </td>
+                                <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">
+                                  <input
+                                    type="number"
+                                    min="1"
+                                    value={item.quantity}
+                                    onChange={(e) => updateQuantity(item.name, parseInt(e.target.value) || 1)}
+                                    className="w-16 sm:w-20 px-2 py-1 border rounded focus:ring-primary focus:border-primary"
+                                  />
+                                </td>
+                                <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">
+                                  {(item.price * item.quantity).toLocaleString()} ₸
+                                </td>
+                                <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                  <button
+                                    onClick={() => removeFromCart(item.name)}
+                                    className="text-red-600 hover:text-red-900 p-2"
+                                    aria-label="Удалить"
+                                  >
+                                    <svg 
+                                      xmlns="http://www.w3.org/2000/svg" 
+                                      className="h-5 w-5" 
+                                      viewBox="0 0 20 20" 
+                                      fill="currentColor"
+                                    >
+                                      <path 
+                                        fillRule="evenodd" 
+                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" 
+                                        clipRule="evenodd" 
+                                      />
+                                    </svg>
+                                  </button>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                          <tfoot className="bg-gray-50">
+                            <tr>
+                              <td colSpan={3} className="px-3 sm:px-6 py-4 text-right text-sm font-medium text-gray-900">
+                                Итого:
+                              </td>
+                              <td className="px-3 sm:px-6 py-4 text-right text-sm font-medium text-gray-900">
+                                {calculateTotal().toLocaleString()} ₸
+                              </td>
+                              <td></td>
+                            </tr>
+                          </tfoot>
+                        </table>
+                      </div>
                     </div>
 
                     <div className="mt-8 flex justify-between">

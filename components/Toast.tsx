@@ -19,8 +19,8 @@ const Toast: React.FC<ToastProps> = ({ message, isVisible, onClose }) => {
         // Даем время для анимации исчезновения перед закрытием
         setTimeout(() => {
           onClose();
-        }, 500);
-      }, 10000);
+        }, 300);
+      }, 3000);
 
       return () => {
         clearTimeout(timer);
@@ -33,7 +33,7 @@ const Toast: React.FC<ToastProps> = ({ message, isVisible, onClose }) => {
   return (
     <div className="fixed bottom-4 right-4 z-[100]">
       <div 
-        className={`bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center transition-all duration-500 ease-in-out ${
+        className={`bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg flex items-center transition-all duration-300 ease-in-out ${
           isShowing ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
         }`}
       >
