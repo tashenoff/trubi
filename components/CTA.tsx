@@ -6,11 +6,44 @@ const CTA = () => {
       {/* Gradient background */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary-dark to-[#0B1829]"></div>
       
-      {/* Dot pattern overlay */}
-      <div className="absolute inset-0" style={{ 
-        backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.15) 1px, transparent 0)`,
-        backgroundSize: '24px 24px'
-      }}></div>
+      {/* Base dot pattern */}
+      <div 
+        className="absolute inset-0" 
+        style={{ 
+          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.15) 1px, transparent 0)`,
+          backgroundSize: '24px 24px'
+        }}
+      ></div>
+
+      {/* Animated brightness wave overlay */}
+      <div 
+        className="absolute inset-0" 
+        style={{ 
+          backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.4) 1px, transparent 0)`,
+          backgroundSize: '24px 24px',
+          maskImage: `linear-gradient(
+            -45deg,
+            transparent,
+            transparent 45%,
+            black 48%,
+            black 52%,
+            transparent 55%,
+            transparent
+          )`,
+          WebkitMaskImage: `linear-gradient(
+            -45deg,
+            transparent,
+            transparent 45%,
+            black 48%,
+            black 52%,
+            transparent 55%,
+            transparent
+          )`,
+          maskSize: '150% 150%',
+          WebkitMaskSize: '150% 150%',
+          animation: 'diagonal-wave 8s ease-in-out infinite'
+        }}
+      ></div>
       
       {/* Content */}
       <div className="relative max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
@@ -47,6 +80,19 @@ const CTA = () => {
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes diagonal-wave {
+          0% {
+            mask-position: 150% 150%;
+            -webkit-mask-position: 150% 150%;
+          }
+          100% {
+            mask-position: -50% -50%;
+            -webkit-mask-position: -50% -50%;
+          }
+        }
+      `}</style>
     </div>
   );
 };
