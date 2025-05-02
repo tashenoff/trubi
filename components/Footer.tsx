@@ -75,12 +75,12 @@ const Footer = () => {
           </div> */}
         </div>
         <div className="mt-12 pt-8 border-t border-gray-700">
-          <div className="flex justify-between items-center">
-            <p className="text-gray-400"> 2025 TRUBI. Все права защищены.</p>
-            <div className="flex space-x-4">
+          <div className="flex lg:flex-row flex-col lg:justify-between items-center">
+            <p className="text-gray-400"> 2025 Gas Metal Service. Все права защищены.</p>
+            {/* <div className="flex space-x-4">
               <a href="/terms" className="text-gray-400 hover:text-white transition-colors">Пользовательское соглашение</a>
               <a href="/privacy" className="text-gray-400 hover:text-white transition-colors">Политика конфиденциальности</a>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
