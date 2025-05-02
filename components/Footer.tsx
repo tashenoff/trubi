@@ -1,73 +1,91 @@
 import React from 'react';
+import { Phone, Mail, MapPin } from 'lucide-react';
+import { useContacts } from './useContacts';
 import contactsData from '../data/products.json';
+import Image from 'next/image';
+
 
 const Footer = () => {
-  const { phone, email, address } = contactsData.contacts;
+  const { phone, email, address } = useContacts();
 
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Компания */}
+    <footer className="bg-black text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
-            <h3 className="text-xl font-bold mb-4">ТрубПром</h3>
-            <p className="text-gray-400">
-              Производство и поставка высококачественных труб и комплектующих для промышленных предприятий
-            </p>
+            <div className="mb-4 flex items-center space-x-2">
+              <Image
+                src="/images/logo.png"
+                alt="Логотип"
+                width={120}
+                height={32}
+              />
+            
+            </div>
+            <div className="space-y-4">
+              <p className="text-gray-300">Gas Metal Service — Ваш надежный поставщик труб и металлопроката. Качество, надежность и профессионализм — наш приоритет.</p>
+            </div>
           </div>
-
-          {/* Контакты */}
-          <div>
-            <h3 className="text-xl font-bold mb-4">Контакты</h3>
-            <div className="space-y-3">
+          <div >
+            <h3 className="text-xl font-bold mb-6">Контакты</h3>
+            <div className="space-y-4">
               <div className="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                </svg>
-                <span>{phone}</span>
+                <Phone className="h-5 w-5 mr-2 text-white" />
+                <div>
+                  <a href={`tel:${phone}`} className="text-gray-300 hover:text-white transition-colors">
+                    {phone}
+                  </a>
+                </div>
               </div>
               <div className="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                </svg>
-                <span>{email}</span>
+                <Mail className="h-5 w-5 mr-2 text-white" />
+                <div>
+                  <a href={`mailto:${email}`} className="text-gray-300 hover:text-white transition-colors">
+                    {email}
+                  </a>
+                </div>
               </div>
               <div className="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                </svg>
-                <span>{address}</span>
+                <MapPin className="h-5 w-5 mr-2 text-white" />
+                <div>
+                  <p className="text-gray-300">{address}</p>
+                </div>
               </div>
             </div>
           </div>
-
-          {/* Навигация */}
-          <div>
-            <h3 className="text-xl font-bold mb-4">Навигация</h3>
-            <ul className="space-y-2">
-              <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">Главная</a>
-              </li>
-              <li>
-                <a href="#products" className="text-gray-400 hover:text-white transition-colors">Продукция</a>
-              </li>
-              <li>
-                <a href="#advantages" className="text-gray-400 hover:text-white transition-colors">Преимущества</a>
-              </li>
-              <li>
-                <a href="#contact" className="text-gray-400 hover:text-white transition-colors">Контакты</a>
-              </li>
-            </ul>
-          </div>
+          {/* <div>
+            <h3 className="text-xl font-bold mb-6">Навигация</h3>
+            <nav className="space-y-2">
+              <a href="/" className="text-gray-300 hover:text-white transition-colors">Главная</a>
+              <a href="/products" className="text-gray-300 hover:text-white transition-colors">Продукция</a>
+              <a href="/services" className="text-gray-300 hover:text-white transition-colors">Услуги</a>
+              <a href="/about" className="text-gray-300 hover:text-white transition-colors">О компании</a>
+              <a href="/contacts" className="text-gray-300 hover:text-white transition-colors">Контакты</a>
+            </nav>
+          </div> */}
+          {/* <div>
+            <h3 className="text-xl font-bold mb-6">Быстрые ссылки</h3>
+            <nav className="space-y-2">
+              <a href="/delivery" className="text-gray-300 hover:text-white transition-colors">Доставка</a>
+              <a href="/payment" className="text-gray-300 hover:text-white transition-colors">Оплата</a>
+              <a href="/guarantees" className="text-gray-300 hover:text-white transition-colors">Гарантии</a>
+              <a href="/faq" className="text-gray-300 hover:text-white transition-colors">FAQ</a>
+              <a href="/blog" className="text-gray-300 hover:text-white transition-colors">Блог</a>
+            </nav>
+          </div> */}
         </div>
-
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; {new Date().getFullYear()} ТрубПром. Все права защищены.</p>
+        <div className="mt-12 pt-8 border-t border-gray-700">
+          <div className="flex justify-between items-center">
+            <p className="text-gray-400"> 2025 TRUBI. Все права защищены.</p>
+            <div className="flex space-x-4">
+              <a href="/terms" className="text-gray-400 hover:text-white transition-colors">Пользовательское соглашение</a>
+              <a href="/privacy" className="text-gray-400 hover:text-white transition-colors">Политика конфиденциальности</a>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
   );
 };
 
-export default Footer; 
+export default Footer;

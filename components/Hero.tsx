@@ -2,8 +2,24 @@ import React from 'react';
 
 const Hero = () => {
   return (
-    <div id="home" className="relative bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <div id="home" className="relative h-[700px] overflow-hidden bg-gray-900 text-white">
+      {/* Видео-фон */}
+      <video
+        className="absolute top-0 left-0 w-full h-full object-cover z-0"
+        autoPlay
+        loop
+        muted
+        playsInline
+      >
+        <source src="/videos/GMS-video.mp4" type="video/mp4" />
+        Ваш браузер не поддерживает видео.
+      </video>
+
+      {/* Затемнение фона */}
+      <div className="absolute inset-0 bg-black bg-opacity-80 z-10" />
+
+      {/* Контент поверх видео */}
+      <div className="relative z-20 flex items-center justify-center h-full px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
             Производство труб и отводов
@@ -25,4 +41,4 @@ const Hero = () => {
   );
 };
 
-export default Hero; 
+export default Hero;
