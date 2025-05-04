@@ -1,24 +1,56 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 const Hero = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Определяем мобильное устройство
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    // Проверяем при монтировании
+    checkMobile();
+
+    // Добавляем слушатель изменения размера окна
+    window.addEventListener('resize', checkMobile);
+
+    // Очищаем слушатель
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <div id="home" className="relative h-[700px] overflow-hidden bg-gray-900 text-white">
-      {/* Видео-фон */}
-      <video
-        className="absolute top-0 left-0 w-full h-full object-cover z-0"
-        autoPlay
-        loop
-        muted
-        playsInline
-      >
-        <source src="/videos/GMS-video.mp4" type="video/mp4" />
-        Ваш браузер не поддерживает видео.
-      </video>
+      {/* Видео для десктопа */}
+      {!isMobile ? (
+        <video
+          className="absolute top-0 left-0 w-full h-full object-cover z-0"
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src="/videos/GMS-video.mp4" type="video/mp4" />
+        </video>
+      ) : (
+        /* Изображение для мобильных */
+        <div className="absolute inset-0">
+          <Image
+            src="/images/hero-bg.jpg"
+            alt="Hero background"
+            fill
+            priority
+            className="object-cover"
+            quality={90}
+          />
+        </div>
+      )}
 
       {/* Затемнение фона */}
       <div className="absolute inset-0 bg-black bg-opacity-80 z-10" />
 
-      {/* Контент поверх видео */}
+      {/* Контент поверх видео/изображения */}
       <div className="relative z-20 flex items-center justify-center h-full px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
