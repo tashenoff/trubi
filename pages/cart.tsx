@@ -26,10 +26,19 @@ const CartPage = () => {
   const [mounted, setMounted] = useState(false);
   const [isCheckoutStep, setIsCheckoutStep] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
+  const [inputValues, setInputValues] = useState<{ [key: string]: string }>({});
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    const newValues = items.reduce((acc, item) => {
+      acc[item.name] = item.quantity.toString();
+      return acc;
+    }, {} as { [key: string]: string });
+    setInputValues(newValues);
+  }, [items]);
 
   const calculateTotal = () => {
     return items.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -129,10 +138,30 @@ const CartPage = () => {
                             <div className="text-sm text-gray-500">
                               {item.price.toLocaleString()} ₸ × 
                               <input
-                                type="number"
-                                min="1"
-                                value={item.quantity}
-                                onChange={(e) => updateQuantity(item.name, parseInt(e.target.value) || 1)}
+                                type="text"
+                                inputMode="numeric"
+                                pattern="[0-9]*"
+                                value={inputValues[item.name] || ''}
+                                onChange={(e) => {
+                                  const value = e.target.value.replace(/[^0-9]/g, '');
+                                  setInputValues(prev => ({
+                                    ...prev,
+                                    [item.name]: value
+                                  }));
+                                  if (value) {
+                                    updateQuantity(item.name, parseInt(value));
+                                  }
+                                }}
+                                onBlur={(e) => {
+                                  const value = e.target.value;
+                                  if (!value) {
+                                    updateQuantity(item.name, 1);
+                                    setInputValues(prev => ({
+                                      ...prev,
+                                      [item.name]: '1'
+                                    }));
+                                  }
+                                }}
                                 className="w-16 mx-2 px-2 py-1 border rounded focus:ring-primary focus:border-primary"
                               />
                             </div>
@@ -183,11 +212,31 @@ const CartPage = () => {
                               </td>
                               <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">
                                 <input
-                                  type="number"
-                                  min="1"
-                                  value={item.quantity}
-                                  onChange={(e) => updateQuantity(item.name, parseInt(e.target.value) || 1)}
-                                  className="w-16 sm:w-20 px-2 py-1 border rounded focus:ring-primary focus:border-primary"
+                                  type="text"
+                                  inputMode="numeric"
+                                  pattern="[0-9]*"
+                                  value={inputValues[item.name] || ''}
+                                  onChange={(e) => {
+                                    const value = e.target.value.replace(/[^0-9]/g, '');
+                                    setInputValues(prev => ({
+                                      ...prev,
+                                      [item.name]: value
+                                    }));
+                                    if (value) {
+                                      updateQuantity(item.name, parseInt(value));
+                                    }
+                                  }}
+                                  onBlur={(e) => {
+                                    const value = e.target.value;
+                                    if (!value) {
+                                      updateQuantity(item.name, 1);
+                                      setInputValues(prev => ({
+                                        ...prev,
+                                        [item.name]: '1'
+                                      }));
+                                    }
+                                  }}
+                                  className="w-16 mx-2 px-2 py-1 border rounded focus:ring-primary focus:border-primary"
                                 />
                               </td>
                               <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">

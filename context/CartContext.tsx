@@ -65,8 +65,6 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const updateQuantity = (itemName: string, quantity: number) => {
-    if (quantity < 1) return;
-    
     setItems(prevItems =>
       prevItems.map(item =>
         item.name === itemName ? { ...item, quantity } : item
