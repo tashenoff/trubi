@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { useToast } from '../context/ToastContext';
+import { Check } from 'lucide-react';
 import AddToCartModal from './AddToCartModal';
 
 interface Specification {
@@ -119,22 +120,40 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, onAddToCart, tit
     switch (type) {
       case 'bends':
         return (
-          <tr className="bg-gray-50">
-            <th className="px-4 py-2 text-left">Выбрать</th>
-            <th className="px-4 py-2 text-left">Наименование</th>
-            <th className="px-4 py-2 text-right">Вес, кг</th>
-            <th className="px-4 py-2 text-right">Цена, ₸</th>
+          <tr>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Выбрать
+            </th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Наименование
+            </th>
+            <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Вес, кг
+            </th>
+            <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Цена, ₸
+            </th>
           </tr>
         );
       case 'pipes':
       case 'coldDeformed':
         return (
-          <tr className="bg-gray-50">
-            <th className="px-4 py-2 text-left">Выбрать</th>
-            <th className="px-4 py-2 text-left">Диаметр</th>
-            <th className="px-4 py-2 text-right">Вес 1 п.м.</th>
-            <th className="px-4 py-2 text-right">Цена за 1 п.м.</th>
-            <th className="px-4 py-2 text-right">Цена за 1 тн.</th>
+          <tr>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Выбрать
+            </th>
+            <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Диаметр
+            </th>
+            <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Вес 1 п.м.
+            </th>
+            <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Цена за 1 п.м.
+            </th>
+            <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Цена за 1 тн.
+            </th>
           </tr>
         );
     }
@@ -154,9 +173,9 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, onAddToCart, tit
               <input
                 type="checkbox"
                 checked={isSelected}
-                onChange={() => handleItemToggle(itemName)}
+                onChange={() => isActive && handleItemToggle(itemName)}
                 disabled={!isActive}
-                className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary disabled:opacity-50"
+                className="h-4 w-4 text-primary border-gray-300 rounded focus:ring-primary"
               />
             </td>
             <td className="px-4 py-2">{spec.name}</td>
@@ -172,9 +191,9 @@ const SpecModal: React.FC<SpecModalProps> = ({ isOpen, onClose, onAddToCart, tit
               <input
                 type="checkbox"
                 checked={isSelected}
-                onChange={() => handleItemToggle(itemName)}
+                onChange={() => isActive && handleItemToggle(itemName)}
                 disabled={!isActive}
-                className="w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary disabled:opacity-50"
+                className="h-4 w-4 text-primary border-gray-300 rounded focus:ring-primary"
               />
             </td>
             <td className="px-4 py-2">{spec.diameter}</td>

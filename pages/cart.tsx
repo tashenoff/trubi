@@ -9,6 +9,8 @@ import { useToast } from '../context/ToastContext';
 import ThankYou from '../components/ThankYou';
 import EmptyCart from '../components/EmptyCart';
 import Breadcrumbs from '../components/Breadcrumbs';
+import { motion } from 'framer-motion';
+import { Trash2 } from 'lucide-react';
 
 interface CheckoutFormData {
   name: string;
@@ -117,21 +119,10 @@ const CartPage = () => {
                             </div>
                             <button
                               onClick={() => removeFromCart(item.name)}
-                              className="text-red-600 hover:text-red-900 p-1"
+                              className="text-gray-400 hover:text-red-500 active:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 rounded p-1.5 -m-1.5"
                               aria-label="Удалить"
                             >
-                              <svg 
-                                xmlns="http://www.w3.org/2000/svg" 
-                                className="h-5 w-5" 
-                                viewBox="0 0 20 20" 
-                                fill="currentColor"
-                              >
-                                <path 
-                                  fillRule="evenodd" 
-                                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" 
-                                  clipRule="evenodd" 
-                                />
-                              </svg>
+                              <Trash2 className="h-4 w-4" />
                             </button>
                           </div>
                           <div className="flex justify-between items-center">
@@ -203,24 +194,14 @@ const CartPage = () => {
                                 {(item.price * item.quantity).toLocaleString()} ₸
                               </td>
                               <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <button
+                                <motion.button
                                   onClick={() => removeFromCart(item.name)}
-                                  className="text-red-600 hover:text-red-900 p-2"
+                                  className="text-gray-400 hover:text-red-500 active:text-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 rounded p-1.5 -m-1.5"
+                                  whileTap={{ scale: 0.95 }}
                                   aria-label="Удалить"
                                 >
-                                  <svg 
-                                    xmlns="http://www.w3.org/2000/svg" 
-                                    className="h-5 w-5" 
-                                    viewBox="0 0 20 20" 
-                                    fill="currentColor"
-                                  >
-                                    <path 
-                                      fillRule="evenodd" 
-                                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" 
-                                      clipRule="evenodd" 
-                                    />
-                                  </svg>
-                                </button>
+                                  <Trash2 className="h-4 w-4" />
+                                </motion.button>
                               </td>
                             </tr>
                           ))}
