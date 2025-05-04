@@ -15,6 +15,7 @@ interface CartContextType {
   updateQuantity: (itemName: string, quantity: number) => void;
   clearCart: () => void;
   totalItems: number;
+  calculateTotal: () => number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -30,10 +31,13 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return [];
   });
 
+  const [totalItems, setTotalItems] = useState(0);
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
     }
+    setTotalItems(items.reduce((total, item) => total + item.quantity, 0));
   }, [items]);
 
   const addToCart = (newItems: CartItem[]) => {
@@ -74,7 +78,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setItems([]);
   };
 
-  const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
+  const calculateTotal = () => {
+    return items.reduce((total, item) => total + item.price * item.quantity, 0);
+  };
 
   return (
     <CartContext.Provider
@@ -85,6 +91,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         updateQuantity,
         clearCart,
         totalItems,
+        calculateTotal
       }}
     >
       {children}
@@ -98,4 +105,6 @@ export const useCart = () => {
     throw new Error('useCart must be used within a CartProvider');
   }
   return context;
-}; 
+};
+
+export default CartContext; 

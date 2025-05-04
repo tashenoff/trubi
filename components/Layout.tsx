@@ -8,9 +8,7 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <CartProvider>
-      <div className="min-h-screen bg-gray-100">
-        {children}
-      </div>
+      {children}
     </CartProvider>
   );
 };

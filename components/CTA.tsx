@@ -46,7 +46,7 @@ const CTA = () => {
       ></div>
       
       {/* Content */}
-      <div className="relative max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
         <div className="lg:flex lg:items-center lg:justify-between lg:space-x-8">
           <div className="max-w-2xl">
             <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl">
@@ -60,21 +60,23 @@ const CTA = () => {
             <div className="inline-flex rounded-md shadow-lg">
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center px-8 py-4 border border-white/20 text-lg font-medium rounded-md text-white bg-white/10 hover:bg-white/20 backdrop-blur-sm transform transition-all duration-200 hover:scale-105 hover:shadow-xl"
+                className="group inline-flex items-center bg-green-500 text-white rounded-md text-base font-medium hover:bg-green-600 transition-colors duration-300"
               >
-                <span>Связаться</span>
-                <svg 
-                  xmlns="http://www.w3.org/2000/svg" 
-                  className="h-5 w-5 ml-3" 
-                  viewBox="0 0 20 20" 
-                  fill="currentColor"
-                >
-                  <path 
-                    fillRule="evenodd" 
-                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" 
-                    clipRule="evenodd" 
-                  />
-                </svg>
+                <span className="px-6 py-3">Связаться</span>
+                <div className="border-l border-white/20 h-full px-4 py-3">
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    className="h-5 w-5" 
+                    viewBox="0 0 20 20" 
+                    fill="currentColor"
+                  >
+                    <path 
+                      fillRule="evenodd" 
+                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" 
+                      clipRule="evenodd" 
+                    />
+                  </svg>
+                </div>
               </a>
             </div>
           </div>
