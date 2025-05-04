@@ -62,9 +62,24 @@ const Hero = () => {
           <div className="mt-10">
             <a
               href="#products"
-              className="inline-block bg-primary text-white px-8 py-3 border border-transparent rounded-md text-base font-medium hover:bg-secondary"
+              className="group inline-flex items-center bg-green-500 text-white rounded-md text-base font-medium hover:bg-green-600 transition-colors duration-300"
             >
-              Наша продукция
+              <span className="px-6 py-3">Посмотреть цены</span>
+              <div className="border-l border-white/20 h-full px-4 py-3">
+                <svg 
+                  className="w-5 h-5 animate-bounce" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                  />
+                </svg>
+              </div>
             </a>
           </div>
         </div>

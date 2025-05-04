@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
 import SpecButton from './SpecButton';
 import SpecModal from './SpecModal';
 import AddToCartModal from './AddToCartModal';
+import PriceBadge from './PriceBadge';
 
 interface Specification {
   name?: string;
@@ -35,6 +36,17 @@ const ProductItem: React.FC<ProductItemProps> = ({
   const [isSpecModalOpen, setIsSpecModalOpen] = useState(false);
   const [isAddToCartModalOpen, setIsAddToCartModalOpen] = useState(false);
 
+  // Вычисляем минимальную цену из спецификаций
+  const minPrice = useMemo(() => {
+    if (!specifications.length) return null;
+    
+    return specifications.reduce((min, spec) => {
+      const price = type === 'bends' ? spec.price : spec.pricePerMeter;
+      if (!price) return min;
+      return min === null ? price : Math.min(min, price);
+    }, null as number | null);
+  }, [specifications, type]);
+
   const handleAddToCart = () => {
     setIsSpecModalOpen(false);
     setTimeout(() => {
@@ -53,6 +65,14 @@ const ProductItem: React.FC<ProductItemProps> = ({
             className="object-cover"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
+          {/* Бейдж с минимальной ценой */}
+          {minPrice && (
+            <PriceBadge
+              price={minPrice}
+              type={type}
+              className="absolute top-4 right-4"
+            />
+          )}
         </div>
         <div className="px-6 py-8">
           <h3 className="text-2xl font-bold text-gray-900 mb-4">
