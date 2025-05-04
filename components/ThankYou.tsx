@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle } from 'lucide-react';
+import { Check } from 'lucide-react';
 
 interface ThankYouProps {
   onClose: () => void;
@@ -8,36 +8,41 @@ interface ThankYouProps {
 
 const ThankYou: React.FC<ThankYouProps> = ({ onClose }) => {
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className="fixed inset-0 flex items-center justify-center bg-black/50 z-50 px-4"
-    >
-      <div className="bg-white rounded-lg p-8 max-w-md w-full text-center shadow-xl">
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ delay: 0.2 }}
-        >
-          <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-        </motion.div>
-        
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">
-          Спасибо за ваш заказ!
-        </h2>
-        
-        <p className="text-gray-600 mb-6">
-          Мы получили вашу заявку и свяжемся с вами в ближайшее время для подтверждения заказа.
-        </p>
-
-        <button
-          onClick={onClose}
-          className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-        >
-          Закрыть
-        </button>
-      </div>
-    </motion.div>
+    <div className="flex flex-col items-center justify-center py-16 px-4 bg-white rounded-lg shadow-sm">
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.5 }}
+        className="bg-green-100 rounded-full p-6 mb-6"
+      >
+        <Check className="h-12 w-12 text-green-500" />
+      </motion.div>
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="text-2xl font-semibold text-gray-900 mb-2"
+      >
+        Спасибо за заказ!
+      </motion.h2>
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+        className="text-gray-500 text-center mb-8 max-w-md"
+      >
+        Наш менеджер свяжется с вами в ближайшее время для подтверждения заказа.
+      </motion.p>
+      <motion.button
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.7 }}
+        onClick={onClose}
+        className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary-dark transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+      >
+        Вернуться на главную
+      </motion.button>
+    </div>
   );
 };
 
