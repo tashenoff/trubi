@@ -1,4 +1,5 @@
 import React from 'react';
+import { ChevronRight } from 'lucide-react';
 
 interface StepIndicatorProps {
   currentStep: number;
@@ -6,49 +7,40 @@ interface StepIndicatorProps {
 
 const StepIndicator: React.FC<StepIndicatorProps> = ({ currentStep }) => {
   const steps = [
-    { number: 1, title: 'Подтверждение заказа' },
+    { number: 1, title: 'Подтверждение' },
     { number: 2, title: 'Данные получателя' }
   ];
 
   return (
-    <div className="w-full max-w-3xl mx-auto mb-8">
-      <div className="relative flex items-center">
-        {/* Линия */}
-        <div className="absolute top-3 left-0 right-0 h-[1px] bg-[#1E375A]" />
-        
-        {/* Шаги */}
-        <div className="relative z-10 flex justify-between w-full">
-          {steps.map((step) => (
-            <div 
-              key={step.number}
-              className={`
-                flex flex-col items-center
-                ${step.number === 1 ? 'text-left' : 'text-right'}
-              `}
-            >
-              <div 
-                className={`
-                  w-7 h-7 rounded-full flex items-center justify-center text-sm bg-white
-                  ${currentStep >= step.number 
-                    ? 'bg-[#1E375A] text-white' 
-                    : 'text-[#1E375A] border border-[#1E375A]'
-                  }
-                `}
-              >
-                {step.number}
-              </div>
-              <span 
-                className={`
-                  mt-2 text-sm whitespace-normal text-center w-24 sm:w-32
-                  ${currentStep >= step.number ? 'text-[#1E375A]' : 'text-gray-400'}
-                `}
-              >
-                {step.title}
-              </span>
+    <div className="flex items-center mb-8 text-sm">
+      {steps.map((step, index) => (
+        <React.Fragment key={step.number}>
+          <div className="flex items-center">
+            <div className={`
+              w-6 h-6 rounded-full flex items-center justify-center
+              ${currentStep >= step.number 
+                ? 'bg-primary text-white' 
+                : 'bg-white text-gray-400 border border-gray-300'}
+              text-xs font-medium
+            `}>
+              {step.number}
             </div>
-          ))}
-        </div>
-      </div>
+            <span className={`
+              ml-2
+              ${currentStep >= step.number ? 'text-primary' : 'text-gray-400'}
+            `}>
+              {step.title}
+            </span>
+          </div>
+          
+          {index < steps.length - 1 && (
+            <ChevronRight 
+              size={16}
+              className="mx-2 text-gray-300"
+            />
+          )}
+        </React.Fragment>
+      ))}
     </div>
   );
 };

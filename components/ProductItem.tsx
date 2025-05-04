@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import SpecButton from './SpecButton';
 import SpecModal from './SpecModal';
+import AddToCartModal from './AddToCartModal';
 
 interface Specification {
   name?: string;
@@ -31,7 +32,15 @@ const ProductItem: React.FC<ProductItemProps> = ({
   specifications,
   type
 }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSpecModalOpen, setIsSpecModalOpen] = useState(false);
+  const [isAddToCartModalOpen, setIsAddToCartModalOpen] = useState(false);
+
+  const handleAddToCart = () => {
+    setIsSpecModalOpen(false);
+    setTimeout(() => {
+      setIsAddToCartModalOpen(true);
+    }, 300);
+  };
 
   return (
     <>
@@ -62,17 +71,23 @@ const ProductItem: React.FC<ProductItemProps> = ({
               </li>
             ))}
           </ul>
-          <SpecButton onClick={() => setIsModalOpen(true)} />
+          <SpecButton onClick={() => setIsSpecModalOpen(true)} />
         </div>
       </div>
 
       <SpecModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isOpen={isSpecModalOpen}
+        onClose={() => setIsSpecModalOpen(false)}
+        onAddToCart={handleAddToCart}
         title={name}
         gost={gost}
         specifications={specifications}
         type={type}
+      />
+
+      <AddToCartModal
+        isOpen={isAddToCartModalOpen}
+        onClose={() => setIsAddToCartModalOpen(false)}
       />
     </>
   );
