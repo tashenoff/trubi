@@ -4,10 +4,11 @@ import { useRouter } from 'next/router';
 import contactsData from '../data/products.json';
 import CartIcon from './CartIcon';
 import Image from 'next/image';
-
+import { Menu, Transition } from '@headlessui/react';
+import { Fragment } from 'react';
 
 const Navbar = () => {
-  const { phone } = contactsData.contacts;
+  const { phone, phone2 } = contactsData.contacts;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const router = useRouter();
@@ -94,25 +95,49 @@ const Navbar = () => {
                 >
                   Контакты
                 </a>
-                <div className="text-white font-medium flex items-center group">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 mr-2 transition-transform group-hover:rotate-12"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                  </svg>
-                  <span className="text-sm hover:text-gray-300 transition-colors duration-200">{phone}</span>
-                </div>
-                <div className="transition-transform hover:scale-105">
-                  <CartIcon />
+                <div className="flex items-center space-x-4">
+                  <div className="hidden lg:flex items-center space-x-4">
+                    <a href={`tel:${phone}`} className="flex items-center text-white hover:text-gray-300 transition-colors duration-200 group">
+                      <div className="flex items-center justify-center h-8 w-8 rounded-full bg-green-500/10 mr-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                          <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                        </svg>
+                      </div>
+                      <span className="text-sm font-medium">{phone}</span>
+                    </a>
+                    <div className="h-4 w-px bg-gray-600"></div>
+                    <a href={`tel:${phone2}`} className="flex items-center text-white hover:text-gray-300 transition-colors duration-200 group">
+                      <div className="flex items-center justify-center h-8 w-8 rounded-full bg-blue-500/10 mr-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+                          <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                        </svg>
+                      </div>
+                      <span className="text-sm font-medium">{phone2}</span>
+                    </a>
+                  </div>
+                  {/* Для мобильных устройств показываем только один номер */}
+                  <a href={`tel:${phone}`} className="lg:hidden flex items-center text-white hover:text-gray-300 transition-colors duration-200 group">
+                    <div className="flex items-center justify-center h-8 w-8 rounded-full bg-green-500/10 mr-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                      </svg>
+                    </div>
+                    <span className="text-sm font-medium">{phone}</span>
+                  </a>
+                  <div className="transition-transform hover:scale-105">
+                    <CartIcon />
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Mobile menu button */}
-            <div className="flex md:hidden items-center space-x-2">
+            <div className="flex md:hidden items-center space-x-4">
+              <a href={`tel:${phone2}`} className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-gray-300 focus:outline-none transition-colors duration-200">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 transition-transform hover:scale-110" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                </svg>
+              </a>
               <div className="transition-transform hover:scale-105">
                 <CartIcon />
               </div>
@@ -180,17 +205,28 @@ const Navbar = () => {
             >
               Контакты
             </a>
-            <div className="text-white font-medium flex items-center px-3 py-2 group">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 mr-2 transition-transform group-hover:rotate-12"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-              </svg>
-              <a href={`tel:${phone}`} className="text-sm hover:text-gray-300 transition-colors duration-200">
-                {phone}
+            <div className="flex flex-col space-y-2 px-3 py-2">
+              <a href={`tel:${phone}`} className="flex items-center p-3 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors duration-200">
+                <div className="flex items-center justify-center h-10 w-10 rounded-full bg-green-900/20 mr-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-white">{phone}</p>
+                  <p className="text-xs text-gray-400">Основной номер</p>
+                </div>
+              </a>
+              <a href={`tel:${phone2}`} className="flex items-center p-3 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors duration-200">
+                <div className="flex items-center justify-center h-10 w-10 rounded-full bg-blue-900/20 mr-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-white">{phone2}</p>
+                  <p className="text-xs text-gray-400">Дополнительный номер</p>
+                </div>
               </a>
             </div>
           </div>
