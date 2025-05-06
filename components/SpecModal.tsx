@@ -3,7 +3,7 @@ import { useCart } from '../context/CartContext';
 import { useToast } from '../context/ToastContext';
 import { Check } from 'lucide-react';
 import AddToCartModal from './AddToCartModal';
-import InfoText from './MarqueeText';
+import InfoText from './InfoText';
 
 interface Specification {
   name?: string;
