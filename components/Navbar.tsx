@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import contactsData from '../data/products.json';
@@ -7,23 +7,41 @@ import Image from 'next/image';
 import { Menu, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 
+// Функция throttle для оптимизации обработчика скролла
+function throttle<T extends (...args: any[]) => any>(
+  func: T,
+  limit: number
+): (...args: Parameters<T>) => void {
+  let inThrottle: boolean;
+  return function(this: any, ...args: Parameters<T>) {
+    if (!inThrottle) {
+      func.apply(this, args);
+      inThrottle = true;
+      setTimeout(() => (inThrottle = false), limit);
+    }
+  };
+}
+
 const Navbar = () => {
   const { phone, phone2 } = contactsData.contacts;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    const handleScroll = () => {
+  const handleScroll = useCallback(
+    throttle(() => {
       const scrolled = window.scrollY > 10;
       setIsScrolled(scrolled);
-    };
+    }, 100),
+    []
+  );
 
+  useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [handleScroll]);
 
-  const handleSectionClick = async (e: React.MouseEvent, sectionId: string) => {
+  const handleSectionClick = useCallback(async (e: React.MouseEvent, sectionId: string) => {
     e.preventDefault();
     if (router.pathname !== '/') {
       await router.push('/');
@@ -33,7 +51,7 @@ const Navbar = () => {
       element.scrollIntoView({ behavior: 'smooth' });
       setIsMobileMenuOpen(false);
     }
-  };
+  }, [router]);
 
   return (
     <>

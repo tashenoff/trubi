@@ -3,6 +3,9 @@ import Toast from '../components/Toast';
 
 interface ToastContextType {
   showToast: (message: string) => void;
+  message: string;
+  isVisible: boolean;
+  hideToast: () => void;
 }
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
@@ -16,17 +19,17 @@ export const ToastProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     setIsVisible(true);
   };
 
-  const handleClose = () => {
+  const hideToast = () => {
     setIsVisible(false);
   };
 
   return (
-    <ToastContext.Provider value={{ showToast }}>
+    <ToastContext.Provider value={{ showToast, message, isVisible, hideToast }}>
       {children}
       <Toast 
         message={message}
         isVisible={isVisible}
-        onClose={handleClose}
+        onClose={hideToast}
       />
     </ToastContext.Provider>
   );

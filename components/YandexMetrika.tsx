@@ -26,50 +26,64 @@ const getUserIP = async (): Promise<string> => {
 
 export default function YandexMetrika() {
   useEffect(() => {
-    (function(m: YandexMetrikaWindow, e: Document, t: string, r: string, i: string, k: any, a: any) {
-      (m[i] as any) = (m[i] as any) || function() {
-        ((m[i] as any).a = (m[i] as any).a || []).push(arguments);
-      };
-      (m[i] as any).l = 1 * new Date().getTime();
-      
-      for (var j = 0; j < document.scripts.length; j++) {
-        if (document.scripts[j].src === r) return;
-      }
-      
-      k = e.createElement(t);
-      a = e.getElementsByTagName(t)[0];
-      k.async = 1;
-      k.src = r;
-      if (a && a.parentNode) {
-        a.parentNode.insertBefore(k, a);
-      }
-    })(window as YandexMetrikaWindow, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym", undefined, undefined);
+    // Отложенная загрузка метрики
+    const loadMetrika = () => {
+      (function(m: YandexMetrikaWindow, e: Document, t: string, r: string, i: string, k: any, a: any) {
+        (m[i] as any) = (m[i] as any) || function() {
+          ((m[i] as any).a = (m[i] as any).a || []).push(arguments);
+        };
+        (m[i] as any).l = 1 * new Date().getTime();
+        
+        for (var j = 0; j < document.scripts.length; j++) {
+          if (document.scripts[j].src === r) return;
+        }
+        
+        k = e.createElement(t);
+        a = e.getElementsByTagName(t)[0];
+        k.async = 1;
+        k.src = r;
+        if (a && a.parentNode) {
+          a.parentNode.insertBefore(k, a);
+        }
+      })(window as YandexMetrikaWindow, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym", undefined, undefined);
 
-    window.ym(METRIKA_ID, "init", {
-      clickmap: true,
-      trackLinks: true,
-      accurateTrackBounce: true,
-      webvisor: true
-    });
+      window.ym(METRIKA_ID, "init", {
+        defer: true,
+        clickmap: true,
+        trackLinks: true,
+        accurateTrackBounce: true,
+        webvisor: true
+      });
+    };
+
+    // Загружаем метрику только после полной загрузки страницы
+    if (document.readyState === 'complete') {
+      loadMetrika();
+    } else {
+      window.addEventListener('load', loadMetrika);
+      return () => window.removeEventListener('load', loadMetrika);
+    }
 
     const sendUserIP = async () => {
       const storedIP = sessionStorage.getItem('deviceIP');
       
       if (storedIP) {
-        console.log("SessionStorage IP:", storedIP);
-        window.ym(METRIKA_ID, 'userParams', { IP: storedIP });
+        window.ym?.(METRIKA_ID, 'userParams', { IP: storedIP });
       } else {
-        const ip = await getUserIP();
-        if (ip) {
-          console.log("IP:", ip);
-          sessionStorage.setItem('deviceIP', ip);
-          window.ym(METRIKA_ID, 'userParams', { IP: ip });
+        try {
+          const ip = await getUserIP();
+          if (ip) {
+            sessionStorage.setItem('deviceIP', ip);
+            window.ym?.(METRIKA_ID, 'userParams', { IP: ip });
+          }
+        } catch (error) {
+          console.error('Failed to get user IP:', error);
         }
       }
     };
 
-    const timer = setTimeout(sendUserIP, 3000);
-
+    // Отложенная отправка IP
+    const timer = setTimeout(sendUserIP, 5000);
     return () => clearTimeout(timer);
   }, []);
 
