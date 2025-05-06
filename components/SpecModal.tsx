@@ -2,8 +2,6 @@ import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { useCart } from '../context/CartContext';
 import { useToast } from '../context/ToastContext';
 import { Check, X } from 'lucide-react';
-import { Dialog } from '@headlessui/react';
-import { useVirtualizer } from '@tanstack/react-virtual';
 import AddToCartModal from './AddToCartModal';
 import InfoText from './InfoText';
 
