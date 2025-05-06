@@ -54,7 +54,7 @@ const Hero = () => {
       <div className="relative z-20 flex items-center justify-center h-full px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
-            Производство труб и отводов
+            Продажа бесшовных труб и отводов
           </h1>
           <p className="mt-6 text-xl max-w-3xl mx-auto">
             Высококачественные бесшовные трубы и отводы для промышленного применения

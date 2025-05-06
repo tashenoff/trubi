@@ -1,14 +1,14 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import Layout from '../components/Layout'
 import { ToastProvider } from '../context/ToastContext'
+import { CartProvider } from '../context/CartContext'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ToastProvider>
-      <Layout>
+      <CartProvider>
         <Component {...pageProps} />
-      </Layout>
+      </CartProvider>
     </ToastProvider>
   )
 }

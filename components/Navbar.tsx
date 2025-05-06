@@ -95,6 +95,12 @@ const Navbar = () => {
                 >
                   Контакты
                 </a>
+                <Link
+                  href="/delivery"
+                  className="text-white hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200"
+                >
+                  Доставка
+                </Link>
                 <div className="flex items-center space-x-4">
                   <div className="hidden lg:flex items-center space-x-4">
                     <a href={`tel:${phone}`} className="flex items-center text-white hover:text-gray-300 transition-colors duration-200 group">
@@ -205,6 +211,12 @@ const Navbar = () => {
             >
               Контакты
             </a>
+            <Link
+              href="/delivery"
+              className="text-white hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200"
+            >
+              Доставка
+            </Link>
             <div className="flex flex-col space-y-2 px-3 py-2">
               <a href={`tel:${phone}`} className="flex items-center p-3 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors duration-200">
                 <div className="flex items-center justify-center h-10 w-10 rounded-full bg-green-900/20 mr-3">

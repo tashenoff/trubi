@@ -1,6 +1,7 @@
 import React from 'react';
-import { CartProvider } from '../context/CartContext';
 import YandexMetrika from './YandexMetrika';
+import Navbar from './Navbar';
+import Footer from './Footer';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -8,10 +9,16 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <CartProvider>
+    <>
       <YandexMetrika />
-      {children}
-    </CartProvider>
+      <div className="min-h-screen flex flex-col">
+        <Navbar />
+        <main className="flex-grow bg-gray-50">
+          {children}
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 };
 
